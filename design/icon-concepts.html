@@ -1,0 +1,401 @@
+<title>Gamba icon concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0714;
+    --bg-elevated: #150f24;
+    --bg-card: #1b1330;
+    --border: #322752;
+    --text: #f2eefc;
+    --text-dim: #a99cc9;
+    --text-faint: #6d5f92;
+    --cyan: #29f5e0;
+    --magenta: #ff3dd8;
+    --gold: #ffcc4d;
+    --teal-deep: #0f7d6f;
+    --plum-deep: #8a1f70;
+    --font-display: 'Rajdhani', system-ui, sans-serif;
+    --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+    --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 48px 32px 72px;
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin: 0 0 14px;
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 40px;
+    letter-spacing: 0.01em;
+    margin: 0 0 12px;
+    text-wrap: balance;
+    color: var(--text);
+  }
+
+  .subhead {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-dim);
+    max-width: 62ch;
+    margin: 0 0 40px;
+  }
+
+  .current-mark {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 2px;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    color: var(--cyan);
+  }
+  .current-mark span { color: var(--magenta); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .card-head { display: flex; flex-direction: column; gap: 6px; }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: 0.01em;
+    color: var(--text);
+  }
+
+  .card-rationale {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .previews {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .preview { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+
+  .preview-stage {
+    width: 100%;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+  }
+
+  .preview-caption {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    text-align: center;
+  }
+
+  /* light browser-tab mockup */
+  .tab-stage { background: #e7e7ea; padding: 10px 8px 0; align-items: flex-start; justify-content: flex-start; }
+  .tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border-radius: 8px 8px 0 0;
+    padding: 7px 14px 7px 10px;
+    max-width: 100%;
+  }
+  .tab svg, .tab img { width: 16px; height: 16px; flex-shrink: 0; }
+  .tab-label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    color: #3a3a42;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* home-screen tile mockup */
+  .tile-stage { background: var(--bg-elevated); }
+  .tile {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tile svg, .tile img { width: 38px; height: 38px; }
+
+  /* in-app header mockup */
+  .header-stage { background: var(--bg); padding: 0; }
+  .mini-header {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px;
+    background: rgba(11, 7, 20, 0.8);
+    border-bottom: 1px solid var(--border);
+  }
+  .mini-header svg, .mini-header img { width: 20px; height: 20px; flex-shrink: 0; }
+  .mini-header .wordmark {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+    color: var(--cyan);
+  }
+  .mini-header .wordmark span { color: var(--magenta); }
+
+  .baseline-note {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.04em;
+    color: var(--text-faint);
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="icon-g" viewBox="0 0 64 64">
+      <text x="32" y="46" font-family="Rajdhani, sans-serif" font-weight="700" font-size="42" text-anchor="middle" fill="#29f5e0">G</text>
+      <circle cx="50" cy="48" r="5" fill="#ff3dd8" />
+    </symbol>
+
+    <symbol id="icon-chip" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="26" fill="#150f24" stroke="#ffcc4d" stroke-width="3" />
+      <g fill="#ffcc4d">
+        <rect x="29" y="4" width="6" height="9" rx="1" />
+        <rect x="29" y="51" width="6" height="9" rx="1" />
+        <rect x="4" y="29" width="9" height="6" rx="1" />
+        <rect x="51" y="29" width="9" height="6" rx="1" />
+        <g transform="rotate(45 32 32)">
+          <rect x="29" y="4" width="6" height="9" rx="1" />
+          <rect x="29" y="51" width="6" height="9" rx="1" />
+          <rect x="4" y="29" width="9" height="6" rx="1" />
+          <rect x="51" y="29" width="9" height="6" rx="1" />
+        </g>
+      </g>
+      <circle cx="32" cy="32" r="11" fill="#29f5e0" />
+    </symbol>
+
+    <symbol id="icon-crash" viewBox="0 0 64 64">
+      <circle cx="32" cy="32" r="26" fill="#150f24" />
+      <polyline points="13,44 24,36 33,21 51,49" fill="none" stroke="#ffcc4d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+      <circle cx="33" cy="21" r="4.5" fill="#29f5e0" />
+    </symbol>
+
+    <symbol id="icon-dice" viewBox="0 0 64 64">
+      <g transform="rotate(-10 24 30)">
+        <rect x="10" y="16" width="28" height="28" rx="7" fill="#ff3dd8" />
+        <circle cx="24" cy="30" r="3" fill="#0b0714" />
+      </g>
+      <g transform="rotate(8 40 36)">
+        <rect x="26" y="22" width="28" height="28" rx="7" fill="#29f5e0" />
+        <circle cx="34" cy="30" r="3" fill="#0b0714" />
+        <circle cx="46" cy="42" r="3" fill="#0b0714" />
+        <circle cx="40" cy="36" r="3" fill="#0b0714" />
+      </g>
+    </symbol>
+
+    <symbol id="icon-gem" viewBox="0 0 64 64">
+      <polygon points="32,6 10,32 32,32" fill="#29f5e0" />
+      <polygon points="32,6 32,32 54,32" fill="#ff3dd8" />
+      <polygon points="10,32 32,32 32,58" fill="#0f7d6f" />
+      <polygon points="32,32 54,32 32,58" fill="#8a1f70" />
+      <polygon points="32,6 54,32 32,58 10,32" fill="none" stroke="#ffcc4d" stroke-width="2.5" stroke-linejoin="round" />
+      <line x1="18" y1="26" x2="24" y2="16" stroke="#f2eefc" stroke-width="2" stroke-linecap="round" />
+    </symbol>
+
+    <symbol id="icon-original" viewBox="0 0 48 46">
+      <path fill="#863bff" d="M25.946 44.938c-.664.845-2.021.375-2.021-.698V33.937a2.26 2.26 0 0 0-2.262-2.262H10.287c-.92 0-1.456-1.04-.92-1.788l7.48-10.471c1.07-1.497 0-3.578-1.842-3.578H1.237c-.92 0-1.456-1.04-.92-1.788L10.013.474c.214-.297.556-.474.92-.474h28.894c.92 0 1.456 1.04.92 1.788l-7.48 10.471c-1.07 1.498 0 3.579 1.842 3.579h11.377c.943 0 1.473 1.088.89 1.83L25.947 44.94z" />
+      <ellipse cx="10" cy="18" rx="9" ry="24" fill="#ede6ff" opacity="0.5" />
+      <ellipse cx="16" cy="10" rx="10" ry="16" fill="#7e14ff" opacity="0.55" />
+      <ellipse cx="34" cy="10" rx="8" ry="13" fill="#47bfff" opacity="0.55" />
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <p class="eyebrow">Gamba — visual identity workshop</p>
+  <h1>Icon concepts</h1>
+  <p class="subhead">
+    Six directions for the favicon and installed-app icon, each checked against a light browser
+    tab, a home-screen tile, and the real in-app header next to
+    <span class="current-mark">GAMBA<span>.</span></span> so the pick works everywhere it'll show up, not just at one size.
+  </p>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">The monogram</div>
+        <p class="card-rationale">Just the existing wordmark, cropped to its own initial. Same cyan-and-magenta-dot treatment already in the header — nothing new to learn, reads as "Gamba" instantly for anyone who's seen the app once.</p>
+      </div>
+      <div class="previews">
+        <div class="preview">
+          <div class="preview-stage tab-stage"><div class="tab"><svg><use href="#icon-g"/></svg><span class="tab-label">Gamba</span></div></div>
+          <div class="preview-caption">Browser tab</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage tile-stage"><div class="tile"><svg><use href="#icon-g"/></svg></div></div>
+          <div class="preview-caption">Home screen</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage header-stage"><div class="mini-header"><svg><use href="#icon-g"/></svg><span class="wordmark">GAMBA<span>.</span></span></div></div>
+          <div class="preview-caption">In-app header</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">The chip</div>
+        <p class="card-rationale">A poker chip's edge spots, redrawn in gold with a cyan center. The most literally "casino" of the set — instantly legible as gambling, at the cost of being the direction least specific to Gamba itself.</p>
+      </div>
+      <div class="previews">
+        <div class="preview">
+          <div class="preview-stage tab-stage"><div class="tab"><svg><use href="#icon-chip"/></svg><span class="tab-label">Gamba</span></div></div>
+          <div class="preview-caption">Browser tab</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage tile-stage"><div class="tile"><svg><use href="#icon-chip"/></svg></div></div>
+          <div class="preview-caption">Home screen</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage header-stage"><div class="mini-header"><svg><use href="#icon-chip"/></svg><span class="wordmark">GAMBA<span>.</span></span></div></div>
+          <div class="preview-caption">In-app header</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">The spike</div>
+        <p class="card-rationale">The crash graph's line — climb, peak, drop — with the cash-out point marked. The one option pulled from Gamba's own mechanics rather than generic casino iconography, though it leans on players already knowing that game.</p>
+      </div>
+      <div class="previews">
+        <div class="preview">
+          <div class="preview-stage tab-stage"><div class="tab"><svg><use href="#icon-crash"/></svg><span class="tab-label">Gamba</span></div></div>
+          <div class="preview-caption">Browser tab</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage tile-stage"><div class="tile"><svg><use href="#icon-crash"/></svg></div></div>
+          <div class="preview-caption">Home screen</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage header-stage"><div class="mini-header"><svg><use href="#icon-crash"/></svg><span class="wordmark">GAMBA<span>.</span></span></div></div>
+          <div class="preview-caption">In-app header</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">The dice</div>
+        <p class="card-rationale">Two overlapping dice in the app's magenta and cyan. Playful and colorful, but the most generic "gambling app" shorthand of the set — the shape a dozen other casino apps could also use.</p>
+      </div>
+      <div class="previews">
+        <div class="preview">
+          <div class="preview-stage tab-stage"><div class="tab"><svg><use href="#icon-dice"/></svg><span class="tab-label">Gamba</span></div></div>
+          <div class="preview-caption">Browser tab</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage tile-stage"><div class="tile"><svg><use href="#icon-dice"/></svg></div></div>
+          <div class="preview-caption">Home screen</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage header-stage"><div class="mini-header"><svg><use href="#icon-dice"/></svg><span class="wordmark">GAMBA<span>.</span></span></div></div>
+          <div class="preview-caption">In-app header</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">The token</div>
+        <p class="card-rationale">A faceted credit token — four flat facets in the app's own neon pairing, gold-outlined like a stamped chip. Reads as "value" without being a real coin or a real casino chip, which fits a currency that's explicitly fake.</p>
+      </div>
+      <div class="previews">
+        <div class="preview">
+          <div class="preview-stage tab-stage"><div class="tab"><svg><use href="#icon-gem"/></svg><span class="tab-label">Gamba</span></div></div>
+          <div class="preview-caption">Browser tab</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage tile-stage"><div class="tile"><svg><use href="#icon-gem"/></svg></div></div>
+          <div class="preview-caption">Home screen</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage header-stage"><div class="mini-header"><svg><use href="#icon-gem"/></svg><span class="wordmark">GAMBA<span>.</span></span></div></div>
+          <div class="preview-caption">In-app header</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <div class="card-title">Current favicon</div>
+        <p class="card-rationale">What's already sitting in <span class="baseline-note">public/favicon.svg</span> today, unedited, shown in the same three spots for a fair side-by-side. Soft-edged and violet rather than flat and neon — it doesn't match the header's cyan/magenta at all, which is the main thing worth deciding on.</p>
+      </div>
+      <div class="previews">
+        <div class="preview">
+          <div class="preview-stage tab-stage"><div class="tab"><svg><use href="#icon-original"/></svg><span class="tab-label">Gamba</span></div></div>
+          <div class="preview-caption">Browser tab</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage tile-stage"><div class="tile"><svg><use href="#icon-original"/></svg></div></div>
+          <div class="preview-caption">Home screen</div>
+        </div>
+        <div class="preview">
+          <div class="preview-stage header-stage"><div class="mini-header"><svg><use href="#icon-original"/></svg><span class="wordmark">GAMBA<span>.</span></span></div></div>
+          <div class="preview-caption">In-app header</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
