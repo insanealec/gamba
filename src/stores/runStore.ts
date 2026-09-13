@@ -9,6 +9,8 @@ function emptyStats(): RunStats {
   return {
     totalWagered: 0,
     totalPaidOut: 0,
+    totalGained: 0,
+    totalLost: 0,
     roundsPlayed: 0,
     roundsByGame: emptyRoundsByGame(),
   }
@@ -26,6 +28,11 @@ export const useRunStore = defineStore('run', {
      * blocks voluntary cash-out mid-round so a pending bet's stake can never
      * be stranded (already deducted, but never resolved into a final summary). */
     roundInFlight: false,
+    /** The amount wagered on the round currently in flight — remembered here
+     * (rather than passed back into settleRound) so the store can work out
+     * that round's actual gain/loss on its own, with no game view needing to
+     * hand its bet amount back at settlement time. */
+    currentBet: 0,
     stats: emptyStats(),
     lastRunSummary: null as RunSummary | null,
   }),
@@ -34,6 +41,7 @@ export const useRunStore = defineStore('run', {
       this.balance = STARTING_BALANCE
       this.peakBalance = STARTING_BALANCE
       this.roundInFlight = false
+      this.currentBet = 0
       this.stats = emptyStats()
       this.isActive = true
       this.lastRunSummary = null
@@ -47,17 +55,24 @@ export const useRunStore = defineStore('run', {
       this.stats.roundsPlayed += 1
       this.stats.roundsByGame[game] += 1
       this.roundInFlight = true
+      this.currentBet = amount
       return true
     },
 
     /** Credits a round's payout and checks whether the run just ended. */
     settleRound(payout: number, _game: GameId) {
       this.roundInFlight = false
+      // Profit only (not the returned stake) on a win, and only the portion
+      // of the stake not returned on a loss — a push (payout === bet) is
+      // neither. Together these always sum back to totalPaidOut - totalWagered.
+      if (payout > this.currentBet) this.stats.totalGained += payout - this.currentBet
+      else if (payout < this.currentBet) this.stats.totalLost += this.currentBet - payout
       if (payout > 0) {
         this.balance += payout
         this.stats.totalPaidOut += payout
         this.peakBalance = Math.max(this.peakBalance, this.balance)
       }
+      this.currentBet = 0
       this.checkRunEnd()
     },
 
@@ -76,6 +91,8 @@ export const useRunStore = defineStore('run', {
     recoverInterruptedRound() {
       if (!this.roundInFlight) return
       this.roundInFlight = false
+      this.stats.totalLost += this.currentBet
+      this.currentBet = 0
       this.checkRunEnd()
     },
 
@@ -88,11 +105,13 @@ export const useRunStore = defineStore('run', {
     },
 
     finishRun(endedBy: RunEndReason) {
-      const { totalWagered, totalPaidOut, roundsPlayed, roundsByGame } = this.stats
+      const { totalWagered, totalPaidOut, totalGained, totalLost, roundsPlayed, roundsByGame } = this.stats
       const net = totalPaidOut - totalWagered
       const summary: RunSummary = {
         totalWagered,
         totalPaidOut,
+        totalGained,
+        totalLost,
         net,
         realizedHouseEdge: totalWagered > 0 ? -net / totalWagered : 0,
         roundsPlayed,

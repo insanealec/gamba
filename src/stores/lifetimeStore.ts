@@ -9,6 +9,8 @@ function emptyStats(): LifetimeStats {
     runsCompleted: 0,
     totalWagered: 0,
     totalPaidOut: 0,
+    totalGained: 0,
+    totalLost: 0,
     roundsPlayed: 0,
     roundsByGame: emptyRoundsByGame(),
     totalPeakBalance: 0,
@@ -30,6 +32,8 @@ function loadInitial(): LifetimeStats {
       runsCompleted: Number(parsed.runsCompleted) || 0,
       totalWagered: Number(parsed.totalWagered) || 0,
       totalPaidOut: Number(parsed.totalPaidOut) || 0,
+      totalGained: Number(parsed.totalGained) || 0,
+      totalLost: Number(parsed.totalLost) || 0,
       roundsPlayed: Number(parsed.roundsPlayed) || 0,
       roundsByGame,
       totalPeakBalance: Number(parsed.totalPeakBalance) || 0,
@@ -68,6 +72,8 @@ export const useLifetimeStore = defineStore('lifetime', {
       this.runsCompleted += 1
       this.totalWagered += summary.totalWagered
       this.totalPaidOut += summary.totalPaidOut
+      this.totalGained += summary.totalGained
+      this.totalLost += summary.totalLost
       this.roundsPlayed += summary.roundsPlayed
       for (const id of ALL_GAME_IDS) {
         this.roundsByGame[id as GameId] += summary.roundsByGame[id as GameId]
@@ -85,6 +91,8 @@ export const useLifetimeStore = defineStore('lifetime', {
             runsCompleted: this.runsCompleted,
             totalWagered: this.totalWagered,
             totalPaidOut: this.totalPaidOut,
+            totalGained: this.totalGained,
+            totalLost: this.totalLost,
             roundsPlayed: this.roundsPlayed,
             roundsByGame: this.roundsByGame,
             totalPeakBalance: this.totalPeakBalance,

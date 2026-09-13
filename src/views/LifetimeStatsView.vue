@@ -35,6 +35,14 @@ function pct(n: number) {
         <span class="stat-label">Total Paid Out</span>
         <span class="stat-value">{{ fmt(lifetime.totalPaidOut) }}</span>
       </div>
+      <div class="stat card highlight">
+        <span class="stat-label">Gained vs Lost</span>
+        <span class="stat-value split">
+          <span class="up">+{{ fmt(lifetime.totalGained) }}</span>
+          <span class="down">−{{ fmt(lifetime.totalLost) }}</span>
+        </span>
+        <span class="stat-sub">Every win and every loss, added up separately — the two numbers that net out to the result below.</span>
+      </div>
       <div class="stat card">
         <span class="stat-label">Net Result</span>
         <span class="stat-value" :style="{ color: lifetime.net >= 0 ? 'var(--neon-green)' : 'var(--neon-red)' }">
@@ -131,6 +139,21 @@ function pct(n: number) {
 
 .stat.highlight .stat-value {
   color: var(--neon-gold);
+}
+
+.stat-value.split {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 1.3rem;
+}
+
+.stat-value.split .up {
+  color: var(--neon-green);
+}
+
+.stat-value.split .down {
+  color: var(--neon-red);
 }
 
 .stat-sub {

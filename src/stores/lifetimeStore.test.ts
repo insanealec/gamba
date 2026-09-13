@@ -10,6 +10,8 @@ function fakeSummary(overrides: Partial<RunSummary> = {}): RunSummary {
   return {
     totalWagered: 1000,
     totalPaidOut: 0,
+    totalGained: 0,
+    totalLost: 1000,
     net: -1000,
     realizedHouseEdge: 1,
     roundsPlayed: 5,
@@ -46,6 +48,15 @@ describe('lifetimeStore', () => {
     expect(store.net).toBe(-1300)
     expect(store.bestPeakBalance).toBe(1300)
     expect(store.totalPeakBalance).toBe(2300)
+  })
+
+  it('accumulates totalGained and totalLost separately across runs', () => {
+    const store = useLifetimeStore()
+    store.recordRun(fakeSummary({ totalGained: 200, totalLost: 0 }))
+    store.recordRun(fakeSummary({ totalGained: 0, totalLost: 450 }))
+
+    expect(store.totalGained).toBe(200)
+    expect(store.totalLost).toBe(450)
   })
 
   it('accumulates roundsByGame per game id', () => {
@@ -96,7 +107,9 @@ describe('lifetimeStore', () => {
 
   it('persists to localStorage and a fresh store instance loads it back', () => {
     const store = useLifetimeStore()
-    store.recordRun(fakeSummary({ totalWagered: 777, totalPaidOut: 111, endedBy: 'cash-out' }))
+    store.recordRun(
+      fakeSummary({ totalWagered: 777, totalPaidOut: 111, totalGained: 111, totalLost: 666, endedBy: 'cash-out' }),
+    )
 
     // Simulate a fresh page load: new Pinia, new store instance, same localStorage.
     setActivePinia(createPinia())
@@ -104,6 +117,8 @@ describe('lifetimeStore', () => {
     expect(reloaded.runsCompleted).toBe(1)
     expect(reloaded.totalWagered).toBe(777)
     expect(reloaded.totalPaidOut).toBe(111)
+    expect(reloaded.totalGained).toBe(111)
+    expect(reloaded.totalLost).toBe(666)
     expect(reloaded.cashedOutRuns).toBe(1)
   })
 
@@ -119,6 +134,8 @@ describe('lifetimeStore', () => {
     const store = useLifetimeStore()
     expect(store.runsCompleted).toBe(3)
     expect(store.totalWagered).toBe(0)
+    expect(store.totalGained).toBe(0)
+    expect(store.totalLost).toBe(0)
     expect(store.roundsByGame.slots).toBe(0)
   })
 })

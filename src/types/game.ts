@@ -41,6 +41,12 @@ export interface GameEngine<TRoundResult> {
 export interface RunStats {
   totalWagered: number
   totalPaidOut: number
+  /** Sum of per-round profit only (payout minus that round's bet, when
+   * positive) — not the returned stake. A push (payout === bet) counts as
+   * neither a gain nor a loss. */
+  totalGained: number
+  /** Sum of per-round loss only (bet minus payout, when positive). */
+  totalLost: number
   roundsPlayed: number
   roundsByGame: Record<GameId, number>
 }
@@ -50,6 +56,8 @@ export type RunEndReason = 'bust' | 'cash-out'
 export interface RunSummary {
   totalWagered: number
   totalPaidOut: number
+  totalGained: number
+  totalLost: number
   net: number
   realizedHouseEdge: number
   roundsPlayed: number
@@ -67,6 +75,8 @@ export interface LifetimeStats {
   runsCompleted: number
   totalWagered: number
   totalPaidOut: number
+  totalGained: number
+  totalLost: number
   roundsPlayed: number
   roundsByGame: Record<GameId, number>
   totalPeakBalance: number

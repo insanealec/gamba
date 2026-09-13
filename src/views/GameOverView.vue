@@ -54,6 +54,17 @@ function pct(n: number) {
         <span class="stat-value">{{ fmt(summary.totalPaidOut) }}</span>
       </div>
       <div class="stat card highlight">
+        <span class="stat-label">Gained vs Lost</span>
+        <span class="stat-value split">
+          <span class="up">+{{ fmt(summary.totalGained) }}</span>
+          <span class="down">−{{ fmt(summary.totalLost) }}</span>
+        </span>
+        <span class="stat-sub">
+          What winning and losing actually added up to along the way — before it netted to
+          {{ summary.net >= 0 ? '+' : '' }}{{ fmt(summary.net) }}.
+        </span>
+      </div>
+      <div class="stat card highlight">
         <span class="stat-label">Peak Balance</span>
         <span class="stat-value">{{ fmt(summary.peakBalance) }}</span>
         <span class="stat-sub">The highest you got, whether or not you kept it.</span>
@@ -140,6 +151,21 @@ function pct(n: number) {
 
 .stat.highlight .stat-value {
   color: var(--neon-gold);
+}
+
+.stat-value.split {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 1.3rem;
+}
+
+.stat-value.split .up {
+  color: var(--neon-green);
+}
+
+.stat-value.split .down {
+  color: var(--neon-red);
 }
 
 .stat-sub {

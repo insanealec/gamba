@@ -140,6 +140,60 @@ describe('runStore', () => {
     })
   })
 
+  describe('totalGained / totalLost', () => {
+    it('a win adds only the profit to totalGained, not the returned stake', () => {
+      const store = useRunStore()
+      store.startRun()
+      store.placeBet(100, 'slots')
+      store.settleRound(250, 'slots') // profit is 150, not 250
+      expect(store.stats.totalGained).toBe(150)
+      expect(store.stats.totalLost).toBe(0)
+    })
+
+    it('a total loss adds the full bet to totalLost', () => {
+      const store = useRunStore()
+      store.startRun()
+      store.placeBet(100, 'slots')
+      store.settleRound(0, 'slots')
+      expect(store.stats.totalGained).toBe(0)
+      expect(store.stats.totalLost).toBe(100)
+    })
+
+    it('a partial payout below the bet adds only the shortfall to totalLost', () => {
+      const store = useRunStore()
+      store.startRun()
+      store.placeBet(100, 'slots')
+      store.settleRound(40, 'slots') // got 40 back, lost the other 60
+      expect(store.stats.totalGained).toBe(0)
+      expect(store.stats.totalLost).toBe(60)
+    })
+
+    it('a push (payout exactly equals the bet) counts as neither a gain nor a loss', () => {
+      const store = useRunStore()
+      store.startRun()
+      store.placeBet(100, 'blackjack')
+      store.settleRound(100, 'blackjack')
+      expect(store.stats.totalGained).toBe(0)
+      expect(store.stats.totalLost).toBe(0)
+    })
+
+    it('gained minus lost always equals totalPaidOut minus totalWagered across multiple rounds', () => {
+      const store = useRunStore()
+      store.startRun()
+      store.placeBet(100, 'slots')
+      store.settleRound(300, 'slots') // +200
+      store.placeBet(100, 'slots')
+      store.settleRound(0, 'slots') // -100
+      store.placeBet(100, 'slots')
+      store.settleRound(70, 'slots') // -30
+
+      const { totalGained, totalLost, totalPaidOut, totalWagered } = store.stats
+      expect(totalGained - totalLost).toBe(totalPaidOut - totalWagered)
+      expect(totalGained).toBe(200)
+      expect(totalLost).toBe(130)
+    })
+  })
+
   describe('recoverInterruptedRound', () => {
     it('does nothing when no round is in flight', () => {
       const store = useRunStore()
@@ -157,6 +211,7 @@ describe('runStore', () => {
       expect(store.roundInFlight).toBe(false)
       expect(store.balance).toBe(800)
       expect(store.stats.totalPaidOut).toBe(0)
+      expect(store.stats.totalLost).toBe(200)
       expect(store.isActive).toBe(true)
     })
 
@@ -180,6 +235,8 @@ describe('runStore', () => {
       const summary = store.lastRunSummary!
       expect(summary.totalWagered).toBe(1000)
       expect(summary.totalPaidOut).toBe(0)
+      expect(summary.totalGained).toBe(0)
+      expect(summary.totalLost).toBe(1000)
       expect(summary.net).toBe(-1000)
       expect(summary.realizedHouseEdge).toBe(1)
       expect(summary.peakBalance).toBe(1000)
