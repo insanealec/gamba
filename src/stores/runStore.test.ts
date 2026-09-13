@@ -140,6 +140,36 @@ describe('runStore', () => {
     })
   })
 
+  describe('recoverInterruptedRound', () => {
+    it('does nothing when no round is in flight', () => {
+      const store = useRunStore()
+      store.startRun()
+      store.recoverInterruptedRound()
+      expect(store.isActive).toBe(true)
+      expect(store.balance).toBe(1000)
+    })
+
+    it('resolves a stranded bet as a loss (simulating a reload mid-round) without crediting a payout', () => {
+      const store = useRunStore()
+      store.startRun()
+      store.placeBet(200, 'slots') // balance now 800, roundInFlight true — as if the tab closed here
+      store.recoverInterruptedRound()
+      expect(store.roundInFlight).toBe(false)
+      expect(store.balance).toBe(800)
+      expect(store.stats.totalPaidOut).toBe(0)
+      expect(store.isActive).toBe(true)
+    })
+
+    it('ends the run as a bust if the stranded bet was the last of the balance', () => {
+      const store = useRunStore()
+      store.startRun()
+      store.placeBet(1000, 'slots')
+      store.recoverInterruptedRound()
+      expect(store.isActive).toBe(false)
+      expect(store.lastRunSummary?.endedBy).toBe('bust')
+    })
+  })
+
   describe('finishRun summary math', () => {
     it('computes net, realizedHouseEdge, and peakBalance correctly on a total loss', () => {
       const store = useRunStore()

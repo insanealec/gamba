@@ -15,6 +15,9 @@ function emptyStats(): RunStats {
 }
 
 export const useRunStore = defineStore('run', {
+  persist: {
+    key: 'gamba-run-session',
+  },
   state: () => ({
     isActive: false,
     balance: 0,
@@ -61,6 +64,19 @@ export const useRunStore = defineStore('run', {
     checkRunEnd() {
       if (!this.isActive || this.balance > 0) return
       this.finishRun('bust')
+    },
+
+    /** Called once at app boot, after the persisted run is rehydrated from
+     * localStorage. A round left `roundInFlight` can only mean the tab was
+     * closed (or crashed) between placeBet() and settleRound() — the same
+     * "torn down mid-round" situation every game's onUnmounted guard already
+     * handles, just via a page reload instead of a route change. The stake
+     * was already deducted, so resolving it as a loss (no payout) is the
+     * only consistent way to un-strand it. */
+    recoverInterruptedRound() {
+      if (!this.roundInFlight) return
+      this.roundInFlight = false
+      this.checkRunEnd()
     },
 
     /** Voluntarily ends the run, banking the current balance. Returns false
