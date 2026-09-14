@@ -13,8 +13,8 @@ export default defineConfig({
         enabled: true,
       },
       manifest: {
-        name: 'Gamba',
-        short_name: 'Gamba',
+        name: 'GambaRun',
+        short_name: 'GambaRun',
         description: 'The house always wins eventually. How long can you hold the line?',
         theme_color: '#0b0714',
         background_color: '#0b0714',

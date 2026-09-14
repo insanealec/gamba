@@ -26,7 +26,7 @@ function startRun() {
 <template>
   <div class="lobby">
     <div v-if="!runStore.isActive" class="intro card">
-      <h1>Welcome to <span class="glow-text">Gamba</span></h1>
+      <h1>Welcome to <span class="glow-text">GambaRun</span></h1>
       <p>
         Every run starts with 1,000 fake credits. Play any game below with that shared balance.
         When you hit zero, the run ends for good and you'll see exactly how the math played out.

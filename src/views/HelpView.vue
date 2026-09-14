@@ -6,7 +6,7 @@ import { HELP_RESOURCES } from '../data/helpResources'
   <div class="help-view">
     <h1>Help &amp; Resources</h1>
     <p>
-      Gamba is a free, fake-money simulator meant to make the math of gambling visible. If
+      GambaRun is a free, fake-money simulator meant to make the math of gambling visible. If
       real-money gambling is affecting you or someone you know, these resources are free,
       confidential, and available any time.
     </p>

@@ -7,7 +7,7 @@ import CashOutButton from './CashOutButton.vue'
 
 <template>
   <header class="app-header">
-    <RouterLink to="/" class="brand">GAMBA<span class="brand-dot">.</span></RouterLink>
+    <RouterLink to="/" class="brand">GAMBARUN<span class="brand-dot">.</span></RouterLink>
     <nav class="nav">
       <RouterLink to="/stats">Lifetime Stats</RouterLink>
       <RouterLink to="/help">Help &amp; Resources</RouterLink>

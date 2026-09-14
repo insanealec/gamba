@@ -3,7 +3,7 @@
 <template>
   <footer class="app-footer">
     <p>
-      Gamba is a free simulator. No real money, cryptocurrency, or prizes are ever involved — it's
+      GambaRun is a free simulator. No real money, cryptocurrency, or prizes are ever involved — it's
       practice for your brain, not a wager.
     </p>
     <div class="footer-links">

@@ -12,7 +12,7 @@
     <circle cx="49" cy="47" r="6" fill="#ff3dd8" />
   </g>
 
-  <text x="440" y="335" font-family="'Segoe UI', Tahoma, Geneva, Arial, sans-serif" font-weight="800" font-size="120" letter-spacing="1" fill="#29f5e0">GAMBA<tspan fill="#ff3dd8">.</tspan></text>
+  <text x="440" y="322" font-family="'Segoe UI', Tahoma, Geneva, Arial, sans-serif" font-weight="800" font-size="92" letter-spacing="1" fill="#29f5e0">GAMBARUN<tspan fill="#ff3dd8">.</tspan></text>
 
   <text x="443" y="400" font-family="'Segoe UI', Tahoma, Geneva, Arial, sans-serif" font-size="32" fill="#a99cc9">The house always wins eventually.</text>
   <text x="443" y="440" font-family="'Segoe UI', Tahoma, Geneva, Arial, sans-serif" font-size="32" fill="#a99cc9">How long can you hold the line?</text>
