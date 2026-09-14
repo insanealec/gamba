@@ -15,7 +15,7 @@ export default defineConfig({
       manifest: {
         name: 'Gamba',
         short_name: 'Gamba',
-        description: 'The house always wins eventually. How long can you put it off?',
+        description: 'The house always wins eventually. How long can you hold the line?',
         theme_color: '#0b0714',
         background_color: '#0b0714',
         display: 'standalone',
