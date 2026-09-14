@@ -15,7 +15,7 @@ export default defineConfig({
       manifest: {
         name: 'Gamba',
         short_name: 'Gamba',
-        description: 'A risk-free casino simulator — play with fake credits and see the house edge for what it is.',
+        description: 'A roguelike casino sim. Every run starts with 1,000 fake credits — see how far you get before you bust.',
         theme_color: '#0b0714',
         background_color: '#0b0714',
         display: 'standalone',
