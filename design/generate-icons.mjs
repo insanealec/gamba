@@ -21,3 +21,10 @@ for (const { file, size } of targets) {
     .toFile(`${outDir}/${file}`)
   console.log(`wrote ${file} (${size}x${size})`)
 }
+
+const ogSource = readFileSync(resolve(here, 'og-image-source.svg'))
+await sharp(ogSource, { density: 192 })
+  .resize(1200, 630)
+  .png()
+  .toFile(`${outDir}/og-image.png`)
+console.log('wrote og-image.png (1200x630)')
