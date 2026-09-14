@@ -15,7 +15,7 @@ export default defineConfig({
       manifest: {
         name: 'GambaRun',
         short_name: 'GambaRun',
-        description: 'The house always wins eventually. How long can you hold the line?',
+        description: 'The house always wins eventually. How long does your run last?',
         theme_color: '#0b0714',
         background_color: '#0b0714',
         display: 'standalone',
