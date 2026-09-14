@@ -42,22 +42,22 @@ function startRun() {
         <OddsDisplay label="Slots" :rtp="SLOTS_RTP" />
       </RouterLink>
 
+      <RouterLink to="/mega-slots" class="game-card card">
+        <h2>💎 Mega Slots</h2>
+        <p>5×3 grid, 9 paylines — straight, diagonal, zigzag.</p>
+        <OddsDisplay label="Mega Slots" :rtp="MEGASLOTS_RTP" />
+      </RouterLink>
+
       <RouterLink to="/crash" class="game-card card">
         <h2>📈 Crash</h2>
         <p>Cash out before the multiplier busts.</p>
         <OddsDisplay label="Crash" :rtp="CRASH_RTP" />
       </RouterLink>
 
-      <RouterLink to="/horses" class="game-card card">
-        <h2>🏇 Horse Racing</h2>
-        <p>Pick a horse. Longshots pay more.</p>
-        <OddsDisplay label="Horses" :rtp="HORSES_RTP" />
-      </RouterLink>
-
-      <RouterLink to="/mega-slots" class="game-card card">
-        <h2>💎 Mega Slots</h2>
-        <p>5×3 grid, 9 paylines — straight, diagonal, zigzag.</p>
-        <OddsDisplay label="Mega Slots" :rtp="MEGASLOTS_RTP" />
+      <RouterLink to="/plinko" class="game-card card">
+        <h2>🔴 Plinko</h2>
+        <p>Drop a ball through the pegs. Edges pay big.</p>
+        <OddsDisplay label="Plinko" :rtp="PLINKO_RTP" />
       </RouterLink>
 
       <RouterLink to="/mines" class="game-card card">
@@ -66,10 +66,10 @@ function startRun() {
         <OddsDisplay label="Mines" :rtp="MINES_RTP" />
       </RouterLink>
 
-      <RouterLink to="/plinko" class="game-card card">
-        <h2>🔴 Plinko</h2>
-        <p>Drop a ball through the pegs. Edges pay big.</p>
-        <OddsDisplay label="Plinko" :rtp="PLINKO_RTP" />
+      <RouterLink to="/horses" class="game-card card">
+        <h2>🏇 Horse Racing</h2>
+        <p>Pick a horse. Longshots pay more.</p>
+        <OddsDisplay label="Horses" :rtp="HORSES_RTP" />
       </RouterLink>
 
       <RouterLink to="/dice" class="game-card card">
@@ -84,6 +84,12 @@ function startRun() {
         <OddsDisplay label="Roulette" :rtp="ROULETTE_RTP" />
       </RouterLink>
 
+      <RouterLink to="/casino-war" class="game-card card">
+        <h2>⚔️ Casino War</h2>
+        <p>One card each. Higher wins. That's the whole game.</p>
+        <OddsDisplay label="Casino War" :rtp="CASINO_WAR_RTP" />
+      </RouterLink>
+
       <RouterLink to="/blackjack" class="game-card card">
         <h2>🃏 Blackjack</h2>
         <p>The one game where your decisions actually matter.</p>
@@ -94,12 +100,6 @@ function startRun() {
         <h2>🂡 Video Poker</h2>
         <p>Hold your cards, draw once, get paid by hand rank.</p>
         <OddsDisplay label="Video Poker" :rtp="VIDEO_POKER_RTP" />
-      </RouterLink>
-
-      <RouterLink to="/casino-war" class="game-card card">
-        <h2>⚔️ Casino War</h2>
-        <p>One card each. Higher wins. That's the whole game.</p>
-        <OddsDisplay label="Casino War" :rtp="CASINO_WAR_RTP" />
       </RouterLink>
     </div>
   </div>

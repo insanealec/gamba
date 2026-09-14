@@ -4,16 +4,16 @@ import { useRouter } from 'vue-router'
 
 export type GameNavId =
   | 'slots'
-  | 'crash'
-  | 'horses'
   | 'mega-slots'
-  | 'mines'
+  | 'crash'
   | 'plinko'
+  | 'mines'
+  | 'horses'
   | 'dice'
   | 'roulette'
+  | 'casino-war'
   | 'blackjack'
   | 'video-poker'
-  | 'casino-war'
 
 const props = defineProps<{
   current: GameNavId
@@ -23,16 +23,16 @@ const router = useRouter()
 
 const GAMES: { id: GameNavId; to: string; label: string }[] = [
   { id: 'slots', to: '/slots', label: '🎰 Slots' },
-  { id: 'crash', to: '/crash', label: '📈 Crash' },
-  { id: 'horses', to: '/horses', label: '🏇 Horses' },
   { id: 'mega-slots', to: '/mega-slots', label: '💎 Mega Slots' },
-  { id: 'mines', to: '/mines', label: '💣 Mines' },
+  { id: 'crash', to: '/crash', label: '📈 Crash' },
   { id: 'plinko', to: '/plinko', label: '🔴 Plinko' },
+  { id: 'mines', to: '/mines', label: '💣 Mines' },
+  { id: 'horses', to: '/horses', label: '🏇 Horses' },
   { id: 'dice', to: '/dice', label: '🎲 Dice' },
   { id: 'roulette', to: '/roulette', label: '🎡 Roulette' },
+  { id: 'casino-war', to: '/casino-war', label: '⚔️ Casino War' },
   { id: 'blackjack', to: '/blackjack', label: '🃏 Blackjack' },
   { id: 'video-poker', to: '/video-poker', label: '🂡 Video Poker' },
-  { id: 'casino-war', to: '/casino-war', label: '⚔️ Casino War' },
 ]
 
 // 11 games no longer fit as a row of pills without becoming unusable — a

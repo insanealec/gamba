@@ -3,16 +3,16 @@ import { ALL_GAME_IDS } from '../types/game'
 
 export const GAME_LABELS: Record<GameId, string> = {
   slots: 'Slots',
-  crash: 'Crash',
-  horses: 'Horses',
   megaslots: 'Mega',
-  mines: 'Mines',
+  crash: 'Crash',
   plinko: 'Plinko',
+  mines: 'Mines',
+  horses: 'Horses',
   dice: 'Dice',
   roulette: 'Roulette',
+  casinowar: 'War',
   blackjack: 'Blackjack',
   videopoker: 'Poker',
-  casinowar: 'War',
 }
 
 /** Only lists games actually played this run/lifetime — with 11 games,

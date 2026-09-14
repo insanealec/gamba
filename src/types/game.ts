@@ -1,30 +1,30 @@
 export type GameId =
   | 'slots'
-  | 'crash'
-  | 'horses'
   | 'megaslots'
-  | 'mines'
+  | 'crash'
   | 'plinko'
+  | 'mines'
+  | 'horses'
   | 'dice'
   | 'roulette'
+  | 'casinowar'
   | 'blackjack'
   | 'videopoker'
-  | 'casinowar'
 
 /** Single source of truth for "every game id that exists" — used to build
  * roundsByGame records generically instead of one hardcoded line per game. */
 export const ALL_GAME_IDS: GameId[] = [
   'slots',
-  'crash',
-  'horses',
   'megaslots',
-  'mines',
+  'crash',
   'plinko',
+  'mines',
+  'horses',
   'dice',
   'roulette',
+  'casinowar',
   'blackjack',
   'videopoker',
-  'casinowar',
 ]
 
 export function emptyRoundsByGame(): Record<GameId, number> {
