@@ -18,8 +18,6 @@ defineProps<{
 
 <style scoped>
 .math-card {
-  width: 100%;
-  align-self: stretch;
   padding: 0;
   overflow: hidden;
 }

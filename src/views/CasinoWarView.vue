@@ -24,21 +24,23 @@ function pct(n: number, digits = 2) {
       pushes). Going to war is mathematically the better of the two options.
     </p>
 
-    <CasinoWarBoard />
+    <div class="board-column">
+      <CasinoWarBoard />
 
-    <MathWalkthrough :title="`Why ${pct(CASINO_WAR_RTP)} isn't a computed number`">
-      <p>
-        Every other game's percentage is worked out live from a fixed formula. Casino War has one real
-        decision point — surrender a tie for half your bet back, or go to war — and the two choices
-        don't have the same expected value, so there's no single formula that covers both.
-      </p>
-      <p>
-        {{ pct(CASINO_WAR_RTP) }} is the published RTP for always going to war on a tie, which is also
-        the mathematically better of the two choices — surrendering every tie is worse, historically
-        documented around 96.3%. Both are cited real-world figures, not derived from this app's own
-        config.
-      </p>
-    </MathWalkthrough>
+      <MathWalkthrough :title="`Why ${pct(CASINO_WAR_RTP)} isn't a computed number`">
+        <p>
+          Every other game's percentage is worked out live from a fixed formula. Casino War has one real
+          decision point — surrender a tie for half your bet back, or go to war — and the two choices
+          don't have the same expected value, so there's no single formula that covers both.
+        </p>
+        <p>
+          {{ pct(CASINO_WAR_RTP) }} is the published RTP for always going to war on a tie, which is also
+          the mathematically better of the two choices — surrendering every tie is worse, historically
+          documented around 96.3%. Both are cited real-world figures, not derived from this app's own
+          config.
+        </p>
+      </MathWalkthrough>
+    </div>
   </div>
 </template>
 
@@ -48,6 +50,14 @@ function pct(n: number, digits = 2) {
   flex-direction: column;
   gap: 20px;
   align-items: center;
+}
+
+.board-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .header-row {

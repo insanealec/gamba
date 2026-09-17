@@ -37,48 +37,50 @@ function pct(n: number, digits = 2) {
       entirely from how rare it is to land at the edges, where the big multipliers live.
     </p>
 
-    <PlinkoBoard />
+    <div class="board-column">
+      <PlinkoBoard />
 
-    <MathWalkthrough :title="`How the ${pct(PLINKO_RTP)} RTP is calculated`">
-      <p>
-        Every one of the {{ totalPaths.toLocaleString() }} possible left/right paths through
-        {{ ROWS }} rows of pegs is equally likely — a bin's probability is just how many of those paths
-        end there, out of the total. The multiplier table is then scaled so the whole thing lands on
-        exactly {{ pct(PLINKO_RTP) }}.
-      </p>
+      <MathWalkthrough :title="`How the ${pct(PLINKO_RTP)} RTP is calculated`">
+        <p>
+          Every one of the {{ totalPaths.toLocaleString() }} possible left/right paths through
+          {{ ROWS }} rows of pegs is equally likely — a bin's probability is just how many of those paths
+          end there, out of the total. The multiplier table is then scaled so the whole thing lands on
+          exactly {{ pct(PLINKO_RTP) }}.
+        </p>
 
-      <div class="math-table-wrap">
-        <table class="math-table">
-          <thead>
-            <tr>
-              <th>Bin</th>
-              <th>Paths</th>
-              <th>Chance</th>
-              <th>Multiplier</th>
-              <th>Adds to RTP</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="row in rows" :key="row.bin">
-              <td class="highlight-cell">{{ row.bin }}</td>
-              <td>{{ row.paths.toLocaleString() }}</td>
-              <td>{{ pct(row.probability) }}</td>
-              <td>{{ row.multiplier.toFixed(1) }}x</td>
-              <td class="contribution">{{ pct(row.contribution) }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+        <div class="math-table-wrap">
+          <table class="math-table">
+            <thead>
+              <tr>
+                <th>Bin</th>
+                <th>Paths</th>
+                <th>Chance</th>
+                <th>Multiplier</th>
+                <th>Adds to RTP</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="row in rows" :key="row.bin">
+                <td class="highlight-cell">{{ row.bin }}</td>
+                <td>{{ row.paths.toLocaleString() }}</td>
+                <td>{{ pct(row.probability) }}</td>
+                <td>{{ row.multiplier.toFixed(1) }}x</td>
+                <td class="contribution">{{ pct(row.contribution) }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-      <p class="math-formula">
-        The leftmost bin (0) only has one way to happen — bounce left at all {{ ROWS }} pegs — so its
-        chance is 1 in {{ totalPaths.toLocaleString() }}. The center bin ({{ centerBin }}) can happen
-        {{ centerPaths.toLocaleString() }} different ways (any mix of lefts and rights that totals
-        {{ centerBin }} of each), so it's {{ pct(binProbability(centerBin)) }} likely — that's why it's
-        common and cheap to pay, while the edges are almost never hit and pay huge. Multiply every bin's
-        chance by its multiplier and add them all up, and you get {{ pct(PLINKO_RTP) }}.
-      </p>
-    </MathWalkthrough>
+        <p class="math-formula">
+          The leftmost bin (0) only has one way to happen — bounce left at all {{ ROWS }} pegs — so its
+          chance is 1 in {{ totalPaths.toLocaleString() }}. The center bin ({{ centerBin }}) can happen
+          {{ centerPaths.toLocaleString() }} different ways (any mix of lefts and rights that totals
+          {{ centerBin }} of each), so it's {{ pct(binProbability(centerBin)) }} likely — that's why it's
+          common and cheap to pay, while the edges are almost never hit and pay huge. Multiply every bin's
+          chance by its multiplier and add them all up, and you get {{ pct(PLINKO_RTP) }}.
+        </p>
+      </MathWalkthrough>
+    </div>
   </div>
 </template>
 
@@ -88,6 +90,14 @@ function pct(n: number, digits = 2) {
   flex-direction: column;
   gap: 20px;
   align-items: center;
+}
+
+.board-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: fit-content;
+  max-width: 100%;
 }
 
 .header-row {

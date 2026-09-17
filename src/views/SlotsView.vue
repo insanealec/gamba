@@ -33,51 +33,54 @@ function pct(n: number, digits = 2) {
       <OddsDisplay label="Slots" :rtp="SLOTS_RTP" />
     </div>
     <div class="layout">
-      <SlotMachine />
-      <Paytable />
-    </div>
+      <div class="board-column">
+        <SlotMachine />
 
-    <MathWalkthrough :title="`How the ${pct(SLOTS_RTP)} RTP is calculated`">
-      <p>
-        Only three-of-a-kind on the single center payline pays anything — no partial matches. Each
-        reel is an independent draw from this table, so the chance of hitting three of the same symbol
-        is just that symbol's chance, cubed.
-      </p>
+        <MathWalkthrough :title="`How the ${pct(SLOTS_RTP)} RTP is calculated`">
+          <p>
+            Only three-of-a-kind on the single center payline pays anything — no partial matches. Each
+            reel is an independent draw from this table, so the chance of hitting three of the same symbol
+            is just that symbol's chance, cubed.
+          </p>
 
-      <div class="math-table-wrap">
-        <table class="math-table">
-          <thead>
-            <tr>
-              <th>Symbol</th>
-              <th>Weight</th>
-              <th>Chance per reel</th>
-              <th>Chance of 3-in-a-row</th>
-              <th>Payout</th>
-              <th>Adds to RTP</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="row in rows" :key="row.id">
-              <td class="highlight-cell">{{ row.icon }} {{ row.label }}</td>
-              <td>{{ row.weight }}</td>
-              <td>{{ pct(row.probability) }}</td>
-              <td>{{ pct(row.chanceOfThree, 4) }}</td>
-              <td>{{ row.multiplier }}x</td>
-              <td class="contribution">{{ pct(row.contribution) }}</td>
-            </tr>
-          </tbody>
-        </table>
+          <div class="math-table-wrap">
+            <table class="math-table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Weight</th>
+                  <th>Chance per reel</th>
+                  <th>Chance of 3-in-a-row</th>
+                  <th>Payout</th>
+                  <th>Adds to RTP</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="row in rows" :key="row.id">
+                  <td class="highlight-cell">{{ row.icon }} {{ row.label }}</td>
+                  <td>{{ row.weight }}</td>
+                  <td>{{ pct(row.probability) }}</td>
+                  <td>{{ pct(row.chanceOfThree, 4) }}</td>
+                  <td>{{ row.multiplier }}x</td>
+                  <td class="contribution">{{ pct(row.contribution) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="math-formula">
+            Take {{ exampleSymbol.icon }} {{ exampleSymbol.label }} ({{ pct(exampleSymbol.probability) }} chance per
+            reel). All three reels need to land on it independently: {{ pct(exampleSymbol.probability) }} ×
+            {{ pct(exampleSymbol.probability) }} × {{ pct(exampleSymbol.probability) }} =
+            {{ pct(exampleSymbol.chanceOfThree, 4) }}. Times the {{ exampleSymbol.multiplier }}x payout, that's a
+            {{ pct(exampleSymbol.contribution) }} contribution to the RTP. Add up all six symbols the same way and
+            you get the full RTP: {{ pct(SLOTS_RTP) }}.
+          </p>
+        </MathWalkthrough>
       </div>
 
-      <p class="math-formula">
-        Take {{ exampleSymbol.icon }} {{ exampleSymbol.label }} ({{ pct(exampleSymbol.probability) }} chance per
-        reel). All three reels need to land on it independently: {{ pct(exampleSymbol.probability) }} ×
-        {{ pct(exampleSymbol.probability) }} × {{ pct(exampleSymbol.probability) }} =
-        {{ pct(exampleSymbol.chanceOfThree, 4) }}. Times the {{ exampleSymbol.multiplier }}x payout, that's a
-        {{ pct(exampleSymbol.contribution) }} contribution to the RTP. Add up all six symbols the same way and
-        you get the full RTP: {{ pct(SLOTS_RTP) }}.
-      </p>
-    </MathWalkthrough>
+      <Paytable />
+    </div>
   </div>
 </template>
 
@@ -103,6 +106,13 @@ function pct(n: number, digits = 2) {
 .layout {
   display: grid;
   grid-template-columns: 1fr;
+  align-items: start;
+  gap: 20px;
+}
+
+.board-column {
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
