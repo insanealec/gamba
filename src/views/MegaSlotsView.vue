@@ -5,6 +5,7 @@ import MegaSlotsBoard from '../components/megaslots/MegaSlotsBoard.vue'
 import MegaPaylinesInfo from '../components/megaslots/MegaPaylinesInfo.vue'
 import OddsDisplay from '../components/shared/OddsDisplay.vue'
 import GameNav from '../components/shared/GameNav.vue'
+import MathWalkthrough from '../components/shared/MathWalkthrough.vue'
 
 const totalWeight = MEGA_SYMBOLS.reduce((sum, s) => sum + s.weight, 0)
 
@@ -58,55 +59,49 @@ const exampleTier = computed(() => exampleSymbol.value.tiers[0])
       <MegaPaylinesInfo />
     </div>
 
-    <details class="math-card card">
-      <summary>
-        <span class="math-title">How the {{ pct(MEGASLOTS_RTP, 1) }} RTP is calculated</span>
-        <span class="math-chevron">▾</span>
-      </summary>
-      <div class="math-body">
-        <p>
-          Every one of the 15 grid cells (5 reels × 3 rows) is an independent draw from this table —
-          same distribution no matter which payline runs through it. So the RTP only needs working
-          out once per symbol, then summed.
-        </p>
+    <MathWalkthrough :title="`How the ${pct(MEGASLOTS_RTP, 1)} RTP is calculated`">
+      <p>
+        Every one of the 15 grid cells (5 reels × 3 rows) is an independent draw from this table —
+        same distribution no matter which payline runs through it. So the RTP only needs working
+        out once per symbol, then summed.
+      </p>
 
-        <div class="math-table-wrap">
-          <table class="math-table">
-            <thead>
-              <tr>
-                <th>Symbol</th>
-                <th>Weight</th>
-                <th>Chance per cell</th>
-                <th>3 in a row</th>
-                <th>4 in a row</th>
-                <th>5 in a row</th>
-                <th>Adds to RTP</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="s in breakdown" :key="s.id">
-                <td class="symbol-cell">{{ s.icon }} {{ s.label }}</td>
-                <td>{{ s.weight }}</td>
-                <td>{{ pct(s.probability) }}</td>
-                <td v-for="t in s.tiers" :key="t.count">{{ pct(t.probability, 3) }} × {{ t.payout }}x</td>
-                <td class="contribution">+{{ pct(s.contribution) }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <p class="math-formula">
-          Take {{ exampleSymbol.icon }} {{ exampleSymbol.label }} ({{ pct(exampleSymbol.probability) }} chance per
-          cell). Landing exactly 3 in a row means the first three reels all match —
-          {{ pct(exampleSymbol.probability) }} × {{ pct(exampleSymbol.probability) }} ×
-          {{ pct(exampleSymbol.probability) }} — <em>and</em> the fourth reel has to land on something else, or
-          it'd count as a 4-match instead. That works out to {{ pct(exampleTier.probability, 3) }}, times the
-          {{ exampleTier.payout }}x payout, for a {{ pct(exampleTier.contribution) }} contribution to the RTP.
-          Every symbol works the same way across all three tiers — add them all up and you get the full RTP:
-          {{ pct(MEGASLOTS_RTP) }}.
-        </p>
+      <div class="math-table-wrap">
+        <table class="math-table">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Weight</th>
+              <th>Chance per cell</th>
+              <th>3 in a row</th>
+              <th>4 in a row</th>
+              <th>5 in a row</th>
+              <th>Adds to RTP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="s in breakdown" :key="s.id">
+              <td class="highlight-cell">{{ s.icon }} {{ s.label }}</td>
+              <td>{{ s.weight }}</td>
+              <td>{{ pct(s.probability) }}</td>
+              <td v-for="t in s.tiers" :key="t.count">{{ pct(t.probability, 3) }} × {{ t.payout }}x</td>
+              <td class="contribution">+{{ pct(s.contribution) }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </details>
+
+      <p class="math-formula">
+        Take {{ exampleSymbol.icon }} {{ exampleSymbol.label }} ({{ pct(exampleSymbol.probability) }} chance per
+        cell). Landing exactly 3 in a row means the first three reels all match —
+        {{ pct(exampleSymbol.probability) }} × {{ pct(exampleSymbol.probability) }} ×
+        {{ pct(exampleSymbol.probability) }} — <em>and</em> the fourth reel has to land on something else, or
+        it'd count as a 4-match instead. That works out to {{ pct(exampleTier.probability, 3) }}, times the
+        {{ exampleTier.payout }}x payout, for a {{ pct(exampleTier.contribution) }} contribution to the RTP.
+        Every symbol works the same way across all three tiers — add them all up and you get the full RTP:
+        {{ pct(MEGASLOTS_RTP) }}.
+      </p>
+    </MathWalkthrough>
   </div>
 </template>
 
@@ -148,111 +143,4 @@ const exampleTier = computed(() => exampleSymbol.value.tiers[0])
   }
 }
 
-.math-card {
-  padding: 0;
-  overflow: hidden;
-}
-
-.math-card summary {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 16px 20px;
-  cursor: pointer;
-  list-style: none;
-  user-select: none;
-}
-
-.math-card summary::-webkit-details-marker {
-  display: none;
-}
-
-.math-title {
-  font-weight: 700;
-  color: var(--text);
-}
-
-.math-chevron {
-  color: var(--text-dim);
-  transition: transform 0.15s ease;
-}
-
-.math-card[open] .math-chevron {
-  transform: rotate(180deg);
-}
-
-.math-card:not([open]) .math-body {
-  display: none;
-}
-
-.math-body {
-  padding: 0 20px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  border-top: 1px solid var(--border);
-  padding-top: 16px;
-}
-
-.math-body > p {
-  margin: 0;
-  color: var(--text-dim);
-  font-size: 0.88rem;
-  line-height: 1.55;
-}
-
-.math-table-wrap {
-  overflow-x: auto;
-}
-
-.math-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.82rem;
-  white-space: nowrap;
-}
-
-.math-table th,
-.math-table td {
-  padding: 8px 12px;
-  text-align: left;
-  font-variant-numeric: tabular-nums;
-}
-
-.math-table th {
-  color: var(--text-dim);
-  font-weight: 600;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  border-bottom: 1px solid var(--border);
-}
-
-.math-table td {
-  border-bottom: 1px solid var(--border);
-  color: var(--text-dim);
-}
-
-.symbol-cell {
-  color: var(--text);
-  font-weight: 600;
-}
-
-.contribution {
-  color: var(--neon-green);
-  font-weight: 700;
-}
-
-.math-formula {
-  margin: 0;
-  padding: 14px 16px;
-  background: var(--bg-elevated);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-family: 'Consolas', 'Courier New', monospace;
-  font-size: 0.8rem;
-  line-height: 1.7;
-  color: var(--text-dim);
-}
 </style>

@@ -11,7 +11,19 @@ import CrashControls from '../components/crash/CrashControls.vue'
 import OddsDisplay from '../components/shared/OddsDisplay.vue'
 import BigWinOverlay from '../components/shared/BigWinOverlay.vue'
 import GameNav from '../components/shared/GameNav.vue'
+import MathWalkthrough from '../components/shared/MathWalkthrough.vue'
 import type { CrashRoundOutcome } from '../types/crash'
+
+const exampleTargets = [1.5, 2, 5, 10, 20]
+const targetRows = exampleTargets.map((target) => ({
+  target,
+  chance: CRASH_RTP / target,
+  ev: (CRASH_RTP / target) * target,
+}))
+
+function pct(n: number, digits = 1) {
+  return `${(n * 100).toFixed(digits)}%`
+}
 
 const runStore = useRunStore()
 const engine = useCrashEngine()
@@ -135,6 +147,40 @@ onUnmounted(() => {
     </div>
 
     <BigWinOverlay :trigger-key="bigWinKey" :text="bigWinText" />
+
+    <MathWalkthrough :title="`How the ${pct(CRASH_RTP)} RTP is calculated`">
+      <p>
+        For any cash-out target m, the chance the multiplier reaches at least m before crashing is
+        {{ pct(CRASH_RTP) }} ÷ m. Whatever target you pick, that exactly cancels out the payout, so the
+        expected value never changes — only how often you win and how big the win is.
+      </p>
+
+      <div class="math-table-wrap">
+        <table class="math-table">
+          <thead>
+            <tr>
+              <th>Cash-out target</th>
+              <th>Chance to reach it</th>
+              <th>Expected value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="row in targetRows" :key="row.target">
+              <td class="highlight-cell">{{ row.target }}x</td>
+              <td>{{ pct(row.chance) }}</td>
+              <td class="contribution">{{ pct(row.ev) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="math-formula">
+        Take a 2x target: the multiplier needs to climb past 2x before it busts, which happens
+        {{ pct(CRASH_RTP / 2) }} of the time ({{ pct(CRASH_RTP) }} ÷ 2). Get there and you cash out 2x your
+        bet; bust before it and you lose the bet entirely. Expected value = {{ pct(CRASH_RTP / 2) }} × 2x =
+        {{ pct(CRASH_RTP) }} — same constant as a 1.5x target, a 20x target, or anywhere in between.
+      </p>
+    </MathWalkthrough>
   </div>
 </template>
 

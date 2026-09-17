@@ -12,7 +12,9 @@ function binomialCoeff(n: number, k: number): number {
 
 const TOTAL_OUTCOMES = 2 ** ROWS
 
-function binProbability(k: number): number {
+/** Exported so the game page can show its work (real bin probabilities), not
+ * just the final multiplier table — same reasoning as computeSlotsRtp() etc. */
+export function binProbability(k: number): number {
   return binomialCoeff(ROWS, k) / TOTAL_OUTCOMES
 }
 

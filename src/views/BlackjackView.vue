@@ -3,6 +3,11 @@ import { BLACKJACK_RTP } from '../data/blackjackConfig'
 import BlackjackBoard from '../components/blackjack/BlackjackBoard.vue'
 import OddsDisplay from '../components/shared/OddsDisplay.vue'
 import GameNav from '../components/shared/GameNav.vue'
+import MathWalkthrough from '../components/shared/MathWalkthrough.vue'
+
+function pct(n: number, digits = 1) {
+  return `${(n * 100).toFixed(digits)}%`
+}
 </script>
 
 <template>
@@ -21,6 +26,22 @@ import GameNav from '../components/shared/GameNav.vue'
     </p>
 
     <BlackjackBoard />
+
+    <MathWalkthrough :title="`Why ${pct(BLACKJACK_RTP)} isn't a computed number`">
+      <p>
+        Every other game's percentage is worked out live from a fixed formula — a bet faces exactly
+        the same odds no matter what you do, so the math only needs computing once. Blackjack can't
+        work that way: your actual return depends on thousands of hit/stand/double/split decisions
+        across every possible hand and dealer upcard, and there's no single formula that captures
+        that the way "chance × payout" does for a slot symbol or a dice roll.
+      </p>
+      <p>
+        {{ pct(BLACKJACK_RTP) }} is the well-documented, published RTP for playing perfect basic
+        strategy against this exact rule set — dealer stands on all 17s, blackjack pays 3:2 — worked
+        out by simulating millions of hands, not derived from this app's own config. Play worse than
+        basic strategy and your real return is lower, with no floor on how much lower.
+      </p>
+    </MathWalkthrough>
   </div>
 </template>
 

@@ -104,3 +104,65 @@ button {
 .glow-text {
   text-shadow: 0 0 12px currentColor;
 }
+
+/* Shared by every game's "how the math works" section (see MathWalkthrough.vue) */
+.math-body > p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.math-table-wrap {
+  overflow-x: auto;
+}
+
+.math-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+
+.math-table th,
+.math-table td {
+  padding: 8px 12px;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+}
+
+.math-table th {
+  color: var(--text-dim);
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--border);
+}
+
+.math-table td {
+  border-bottom: 1px solid var(--border);
+  color: var(--text-dim);
+}
+
+.math-table .highlight-cell {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.math-table .contribution {
+  color: var(--neon-green);
+  font-weight: 700;
+}
+
+.math-formula {
+  margin: 0;
+  padding: 14px 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 0.8rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+}

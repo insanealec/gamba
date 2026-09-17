@@ -3,6 +3,11 @@ import { CASINO_WAR_RTP } from '../data/casinoWarConfig'
 import CasinoWarBoard from '../components/casinowar/CasinoWarBoard.vue'
 import OddsDisplay from '../components/shared/OddsDisplay.vue'
 import GameNav from '../components/shared/GameNav.vue'
+import MathWalkthrough from '../components/shared/MathWalkthrough.vue'
+
+function pct(n: number, digits = 2) {
+  return `${(n * 100).toFixed(digits)}%`
+}
 </script>
 
 <template>
@@ -20,6 +25,20 @@ import GameNav from '../components/shared/GameNav.vue'
     </p>
 
     <CasinoWarBoard />
+
+    <MathWalkthrough :title="`Why ${pct(CASINO_WAR_RTP)} isn't a computed number`">
+      <p>
+        Every other game's percentage is worked out live from a fixed formula. Casino War has one real
+        decision point — surrender a tie for half your bet back, or go to war — and the two choices
+        don't have the same expected value, so there's no single formula that covers both.
+      </p>
+      <p>
+        {{ pct(CASINO_WAR_RTP) }} is the published RTP for always going to war on a tie, which is also
+        the mathematically better of the two choices — surrendering every tie is worse, historically
+        documented around 96.3%. Both are cited real-world figures, not derived from this app's own
+        config.
+      </p>
+    </MathWalkthrough>
   </div>
 </template>
 
